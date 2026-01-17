@@ -143,7 +143,9 @@ $$
 
 Where:
 - **Approval rate** – share of runs that ended in `approve`.
-- **Average revisions** – mean revision cycles per run; more than 3 cycles are penalized via $\min(1, \frac{\text{avg\_revisions}}{3})$.
+- **Average revisions** – mean revision cycles per run; more than 3 cycles are penalized via  
+  $\min(1, \frac{r}{3})$.
+
 - **Groundedness rate** – share of approved memos that were grounded in retrieved evidence.
 
 This weighting (0.5 / 0.3 / 0.2) balances quality, efficiency, and factual support. Higher scores mean more approvals, fewer revisions, and better grounding.
