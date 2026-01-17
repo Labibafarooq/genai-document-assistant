@@ -138,15 +138,14 @@ Every run is evaluated immediately after the human approval step:
 ### Global Evaluation Score (GES)
 To summarize multiple runs, we compute:
 $$
-      ext{GES} = 0.5 \cdot \text{approval\_rate} + 0.3 \cdot \left(1 - \min\left(1, \frac{\text{avg\_revisions}}{3}\right)\right) + 0.2 \cdot \text{groundedness\_rate}
+     GES = 0.5 × approval + 0.3 × (1 − min(1, r / 3)) + 0.2 × grounded
 $$
 
-Where:
-- **Approval rate** – share of runs that ended in `approve`.
-- **Average revisions** – mean revision cycles per run; more than 3 cycles are penalized via  
-  $\min(1, \frac{r}{3})$.
-
-- **Groundedness rate** – share of approved memos that were grounded in retrieved evidence.
+where:
+- approval = approval rate
+- r = average number of revision cycles
+- grounded = groundedness rate
+.
 
 This weighting (0.5 / 0.3 / 0.2) balances quality, efficiency, and factual support. Higher scores mean more approvals, fewer revisions, and better grounding.
 
