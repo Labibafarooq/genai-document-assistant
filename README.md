@@ -204,7 +204,6 @@ run_ges.py consumes the current evaluation_log.csv and echoes the aggregate metr
 
 If you change the human-in-the-loop flow (business_memo_system.py or streamlit_app.py), also run those manually because they require interactive approval input that automated tests can’t cover.
 
-AI Assistance Disclosure 🤖
 
 Parts of this repository were authored with the help of an AI pair-programming assistant (for example, composing documentation, drafting helper scripts, and generating test data for evaluation_log.csv).
 
