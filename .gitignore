@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+.env
+*.db
+evaluation_log.csv
+feedback_log.csv
