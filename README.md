@@ -121,95 +121,89 @@ This provides an interactive web interface for generating and reviewing memos.
 
 ---
 
-Evaluation
+📊 Evaluation
 
-Every run is evaluated immediately after the human approval step:
+Each run is evaluated immediately after the human approval step to track performance, efficiency, and grounding quality over time.
 
-business_memo_system.py captures the topic, number of revision cycles, final decision (approve / reject / max_cycles_reached), and whether the final memo was grounded in retrieved evidence.
+🔁 Evaluation flow
 
-evaluation_logger.py appends this row to evaluation_log.csv (CSV) and can also persist it in SQLite (memo_system.db).
+business_memo_system.py
+Captures the memo topic, number of revision cycles, final decision (approve, reject, max_cycles_reached), and whether the final memo was grounded in retrieved evidence.
 
-After logging, calculate_ges.py can recompute the Global Evaluation Score (GES) so you can see how the system is trending over time. The helper script run_ges.py prints the latest metrics with one command.
+evaluation_logger.py
+Appends the evaluation record to evaluation_log.csv and can also persist it in SQLite (memo_system.db).
 
-Logged fields (per run)
+calculate_ges.py / run_ges.py
+Recomputes and prints the Global Evaluation Score (GES) to show how the system evolves across runs.
 
-timestamp: UTC time the run finished
+🧾 Logged fields (per run)
 
-topic: memo subject the user requested
+timestamp – UTC time when the run finished
 
-revision_cycles: number of edit loops completed before approval/rejection
+topic – memo subject requested by the user
 
-final_decision: approve / reject / max_cycles_reached / unknown
+revision_cycles – number of edit loops before approval or rejection
 
-grounded: True if at least one curated data point supported the final draft
+final_decision – approve / reject / max_cycles_reached / unknown
 
-Global Evaluation Score (GES)
+grounded – whether the final memo was supported by curated evidence
 
-To summarize multiple runs, we compute:
+📈 Global Evaluation Score (GES)
 
-$$
-\text{GES} =
-0.5 \cdot \text{approval\_rate}
-+ 0.3 \cdot \left(1 - \min\left(1, \frac{\text{avg\_revisions}}{3}\right)\right)
-+ 0.2 \cdot \text{groundedness\_rate}
-$$
+The Global Evaluation Score summarizes system performance across multiple runs using three signals:
 
-Where:
+Approval rate
+Share of runs that ended with an approved memo.
 
-Approval rate – share of runs that ended in approve.
+Average revisions
+Mean number of revision cycles per run. Runs requiring more than three revisions are penalized to reflect operational friction.
 
-- **Average revisions** – mean revision cycles per run; more than 3 cycles are penalized when the average exceeds three.
+Groundedness rate
+Share of approved memos that were backed by retrieved evidence rather than unsupported content.
 
+These components are combined with weights 0.5 / 0.3 / 0.2, balancing:
 
+final decision quality,
 
-Groundedness rate – share of approved memos that were grounded in retrieved evidence.
+efficiency of iteration,
 
-This weighting (0.5 / 0.3 / 0.2) balances quality, efficiency, and factual support. Higher scores mean more approvals, fewer revisions, and better grounding.
+and factual grounding.
 
-Why this formula fits the project
+Higher GES values indicate more approvals, fewer revisions, and stronger evidence support.
 
-Approval rate captures the final human/business judgment—the multi-agent loop only succeeds if the approval agent signs off.
+🧠 Why this evaluation makes sense
 
-The revision penalty translates operational friction: if drafts need many edits, the drafting or analyst agents need tuning.
+Approval rate reflects final human or business judgment — the system only succeeds when approval is granted.
 
-Groundedness reinforces the retrieval-first design by rewarding memos backed by curated evidence instead of hallucinations.
+Revision penalties highlight inefficiencies in drafting or analysis agents.
 
-Normalizing revisions at three cycles mirrors the guardrails in the CLI/Streamlit flows (which stop after ~3 rounds), so the metric reflects real usage limits.
+Groundedness reinforces the retrieval-first design and discourages hallucinations.
 
-Together, these signals incentivize improvements that matter most for a memo assistant: reliable approvals, fast iteration, and evidence-backed content.
+Limiting the impact of revisions beyond three cycles mirrors real usage constraints in the CLI and Streamlit workflows.
 
-How to analyze results
+Together, these signals encourage reliable approvals, faster iteration, and evidence-backed content.
 
-python run_ges.py – quick snapshot of the latest metrics.
+🔍 How to analyze results
 
-python analyze_evaluation.py – richer statistics (per-topic averages, approval counts, etc.).
+python run_ges.py – quick snapshot of the latest evaluation metrics
 
-You can also load evaluation_log.csv into your own BI or notebook workflows for deeper dives.
+python analyze_evaluation.py – deeper analysis (per-topic averages, approval counts, trends)
 
-These tools support both quantitative tracking (GES) and qualitative review (per-run logs, feedback).
+evaluation_log.csv can also be loaded into notebooks or BI tools for custom analysis
 
-Quality Assurance ✅
+This setup supports both quantitative tracking (GES) and qualitative review (per-run logs and feedback).
 
-Before pushing changes, run the quick validation suite below to confirm the pipeline is still healthy:
-# 1. Unit tests (calculate GES edge cases)
+✅ Quality Assurance
+
+Before pushing changes, run the checks below to ensure the evaluation pipeline remains healthy:
+
+# Run unit tests (evaluation and scoring logic)
 pytest
 
-# 2. Recompute the latest evaluation metrics
+# Recompute the latest evaluation metrics
 python run_ges.py
 
 
-The pytest suite focuses on calculate_ges edge cases (empty logs, all approvals, mixed outcomes) and guards against regressions in the scoring logic.
-
-run_ges.py consumes the current evaluation_log.csv and echoes the aggregate metrics that the CLI prints after each approval, which doubles as a sanity check for CSV integrity.
-
-If you change the human-in-the-loop flow (business_memo_system.py or streamlit_app.py), also run those manually because they require interactive approval input that automated tests can’t cover.
-
-
-Parts of this repository were authored with the help of an AI pair-programming assistant (for example, composing documentation, drafting helper scripts, and generating test data for evaluation_log.csv).
-
-All AI-generated changes were reviewed, edited, and validated with the tests above to ensure correctness and maintain project style.
-
-Whenever you iterate further, continue logging how AI contributes so downstream reviewers understand which components were machine-assisted.
 
 ## Limitations
 - Output quality depends on the underlying language model  
