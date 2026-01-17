@@ -1,131 +1,145 @@
-🧠 GenAI – Business Memo Emailing Crew
-<p align="center"> <strong>Multi-Agent Generative AI system for automated professional business memos</strong> </p>
-🔥 What is this?
+# 🧠 GenAI Business Memo Crew
 
-A multi-agent Generative AI system that creates professional business memos using a controlled workflow instead of a single prompt.
+<p align="center">
+  <b>Multi-agent Generative AI system for controlled business memo generation</b>
+</p>
 
-Three agents. One pipeline. Human-in-the-loop approval.
+<p align="center">
+  Analyst → Drafting → Approval · Human-in-the-loop · Evaluation-driven
+</p>
 
-Analyst  →  Drafting  →  Approval
+---
 
+## ⚡ One-line summary
+A **multi-agent GenAI pipeline** that generates professional business memos with **human approval**, **revision control**, and **measurable quality metrics**.
 
-Built as an academic + engineering project, with evaluation, logging, and reproducibility in mind.
+---
 
-🎯 Why it exists
+## 🧩 How it works
 
-Most GenAI demos stop at “it generated text”.
-This project focuses on control, structure, and evaluation.
-
-It shows how to:
-
-break text generation into independent agents
-
-keep humans in the loop
-
-measure quality over time
-
-avoid prompt spaghetti
-
-🧩 Architecture (Simple & Clear)
-User Input
-   ↓
-Analyst Agent
-(intent, constraints, tone)
-   ↓
-Drafting Agent
-(memo generation)
-   ↓
-Approval Agent
-(approve / reject / revise)
-   ↓
+User
+↓
+Analyst Agent (intent & constraints)
+↓
+Drafting Agent (memo generation)
+↓
+Approval Agent (approve / reject / revise)
+↓
 Evaluation + Logs
 
 
-Each agent does one job only.
+Each agent has **one responsibility**.  
+No prompt soup. No hidden logic.
 
-✨ Features
-Feature	Description
-🤖 Multi-Agent System	Analyst, Drafting, Approval agents
-🔌 LLM Abstraction	Centralized LLM client
-🌐 Web UI	Streamlit interface
-📊 Evaluation	CSV + SQLite logging
-🧪 Reproducible	Same inputs → same evaluation
-🧱 Clean Design	Clear separation of concerns
-📁 Project Layout
-.
-├── business_memo_system.py   # CLI pipeline
-├── streamlit_app.py          # Web UI
-├── analyst_agent.py          # Intent analysis
-├── drafting_agent.py         # Memo generation
-├── approval_agent.py         # Review & approval
-├── llm_client.py             # LLM interface
-├── evaluation_logger.py      # Logging
-├── calculate_ges.py          # Metrics
-├── analyze_evaluation.py     # Analysis
-├── business_memo_cases.csv   # Example cases
+---
 
-⚙️ Setup
-python -m venv .venv
-source .venv/bin/activate   # or .venv/Scripts/activate on Windows
-pip install -r requirements.txt
+## ✨ Why this project matters
 
-▶️ Run It
-CLI
+Most GenAI demos stop at *“it generated text”*.
+
+This project focuses on:
+- **control** instead of raw generation
+- **human decision points**
+- **measurable quality over time**
+- **clean system design**
+
+---
+
+## 🛠️ Features
+
+- 🤖 Multi-agent architecture  
+- 👤 Human-in-the-loop approval  
+- 📊 Automatic evaluation & scoring  
+- 🌐 Streamlit web interface  
+- 📁 CSV + SQLite logging  
+- 🧪 Reproducible experiments  
+
+---
+
+## 📁 Repository Layout
+
+business_memo_system.py # CLI pipeline
+streamlit_app.py # Web UI
+analyst_agent.py # Intent analysis
+drafting_agent.py # Memo generation
+approval_agent.py # Review & approval
+llm_client.py # LLM abstraction
+evaluation_logger.py # Run logging
+calculate_ges.py # Metrics
+analyze_evaluation.py # Analysis
+
+
+---
+
+## ▶️ Run it
+
+```bash
 python business_memo_system.py
 
-Web App
+or
+
 streamlit run streamlit_app.py
+📊 Evaluation (core idea)
 
-📊 Evaluation (The Important Part)
+Every run is evaluated after approval.
 
-Every run is evaluated after human approval.
+What’s tracked
 
-What gets logged
-Field	Meaning
-timestamp	Run completion time
-topic	Requested memo topic
-revision_cycles	Number of edits
-final_decision	approve / reject / max_cycles_reached
-grounded	Evidence-based or not
-Global Evaluation Score (GES)
+topic
 
-GES combines:
+revision count
 
-Approval rate
+final decision
 
-Revision efficiency
+grounding (evidence-based or not)
 
-Groundedness
+Global Evaluation Score (GES) reflects:
 
-Higher score =
-✔ more approvals
-✔ fewer revisions
-✔ better evidence usage
+approval success
 
-🔍 Analyze Performance
+iteration efficiency
+
+factual grounding
+
+Higher score = better system behavior.
+
+🔍 Analyze results
 python run_ges.py
-
 python analyze_evaluation.py
 
 
 Use evaluation_log.csv for notebooks or BI tools.
 
-✅ Quality Checks
-pytest
-python run_ges.py
+⚠️ Limits
 
-⚠️ Limitations
-
-Depends on underlying LLM quality
+Depends on LLM quality
 
 No automatic fact-checking
 
 Metrics are experimental
 
-📦 Notes
+📌 Notes
 
-Logs and databases are excluded from Git
+Logs & databases excluded from Git
 
-Designed to be easy to clone and evaluate
+Easy to clone & evaluate
 
-This repository represents the final project version
+Final academic project version
+
+
+---
+
+### Why **this** one actually looks good
+- Short sections  
+- No walls of text  
+- Clear hierarchy  
+- White space  
+- Reads in **30 seconds**  
+
+If you want to go **one level higher** (actually 🔥):
+- add **GitHub badges**
+- add **one PNG architecture diagram**
+- add **“Why multi-agent > single prompt”**
+
+Say **which one** and I’ll do it cleanly.
+
