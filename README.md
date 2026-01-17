@@ -158,8 +158,9 @@ Where:
 
 Approval rate – share of runs that ended in approve.
 
-Average revisions – mean revision cycles per run; more than 3 cycles are penalized via
-$\min\left(1, \frac{\text{avg_revisions}}{3}\right)$.
+- **Average revisions** – mean revision cycles per run; more than 3 cycles are penalized via  
+  $\min\left(1, \frac{\text{avg\_revisions}}{3}\right)$.
+
 
 Groundedness rate – share of approved memos that were grounded in retrieved evidence.
 
