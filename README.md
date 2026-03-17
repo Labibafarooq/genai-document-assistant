@@ -9,6 +9,13 @@ The workflow is composed of three agents:
 
 This project was developed as an **academic project** with an emphasis on clarity, reproducibility, evaluation, and software structure.
 
+## 👥 Contributors
+
+This project was developed collaboratively with:
+- Khalil Boukhalil
+- Hamadi Azouz
+
+Original development done as part of academic coursework.
 ---
 
 ## Project Goal
